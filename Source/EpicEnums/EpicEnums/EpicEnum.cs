@@ -1,7 +1,7 @@
 ﻿namespace EpicEnums;
 
-public abstract class EpicEnum : EpicEnum<EpicEnumValue> { }
-public abstract class EpicEnum<TEnum> where TEnum : IEpicEnumValue
+public abstract record EpicEnum : EpicEnum<EpicEnumValue> { }
+public abstract record EpicEnum<TEnum> where TEnum : IEpicEnumValue
 {
 
 }

@@ -1,5 +1,5 @@
 ﻿namespace EpicEnums;
 
-public class EpicEnumValue : IEpicEnumValue
+public record EpicEnumValue : IEpicEnumValue
 {
 }

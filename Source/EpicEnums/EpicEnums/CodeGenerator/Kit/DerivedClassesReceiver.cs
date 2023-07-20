@@ -4,11 +4,11 @@ using Microsoft.CodeAnalysis;
 
 public class DerivedClassesReceiver : SyntaxReceiver
 {
-    private string baseTypeName;
-    public DerivedClassesReceiver(string baseTypeName) => this.baseTypeName = baseTypeName;
+    private readonly string _baseTypeName;
+    public DerivedClassesReceiver(string baseTypeName) => this._baseTypeName = baseTypeName;
 
     public override bool CollectClassSymbol { get; } = true;
 
     protected override bool ShouldCollectClassSymbol(INamedTypeSymbol classSymbol)
-        => classSymbol.IsDerivedFromType(baseTypeName);
+        => classSymbol.IsDerivedFromType(_baseTypeName);
 }

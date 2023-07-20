@@ -10,9 +10,16 @@ namespace EpicEnums.CodeGenerator;
 [Generator]
 public class EnumGenerator : ISourceGenerator
 {
-    readonly SyntaxReceiver _syntaxReceiver = new DerivedClassesReceiver("EpicEnum");
+    readonly SyntaxReceiver _syntaxReceiver = new DerivedRecordsReceiver("EpicEnum");
 
     public void Initialize(GeneratorInitializationContext context)
+    {
+
+        context.RegisterForSyntaxNotifications(() => _syntaxReceiver);
+
+    }
+
+    public void Execute(GeneratorExecutionContext context)
     {
 #pragma warning disable S125 // Sections of code should not be commented out
         //#if DEBUG
@@ -23,22 +30,16 @@ public class EnumGenerator : ISourceGenerator
         //            Debugger.Launch();
         //        }
         //#endif
-        context.RegisterForSyntaxNotifications(() => _syntaxReceiver);
 #pragma warning restore S125 // Sections of code should not be commented out
-    }
-
-    public void Execute(GeneratorExecutionContext context)
-    {
-
         Debug.WriteLine("Hello from the source generator!");
 
         // Retrieve the populated receiver
-        if (!(context.SyntaxContextReceiver is SyntaxReceiver))
+        if (context.SyntaxContextReceiver is not SyntaxReceiver)
         {
             return;
         }
 
-        foreach (INamedTypeSymbol c in this._syntaxReceiver.Classes)
+        foreach (INamedTypeSymbol c in this._syntaxReceiver.Records)
         {
             var baseType = c.BaseType;
             var enumType = baseType!.IsGenericType ? baseType.TypeArguments.First() : baseType.BaseType!.TypeArguments.First();
@@ -51,7 +52,7 @@ public class EnumGenerator : ISourceGenerator
             sb.AppendLine("public enum " + c.Name + "Enum");
             sb.AppendLine("{");
 
-            foreach (var p in properties)
+            foreach (var p in properties.Where(x => x.Name != "this[]"))
             {
                 sb.AppendLine("    " + p.Name + ",");
             }

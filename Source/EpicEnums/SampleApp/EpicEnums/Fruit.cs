@@ -2,9 +2,15 @@
 
 namespace SampleApp.EpicEnums;
 
-public class Fruit : EpicEnumValue
+public partial record Fruit : EpicEnumValue
 {
     public required string Name { get; init; }
     public required string Description { get; init; }
-    //public FruitsEnum _fruitsEnum { get; ini
+
+
+    #region ShouldBeGenerated
+
+    public FruitsEnum EnumValue { get; init; }
+
+    #endregion
 }

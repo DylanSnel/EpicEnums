@@ -12,11 +12,12 @@
 
 @code {
     private int currentCount = 0;
-    private FruitsEnum fruit = FruitsEnum.Banana; 
+    private FruitsEnum fruit = FruitsEnum.Apple; 
 
     private void IncrementCount()
     {
         currentCount++;
-        fruit = (FruitsEnum) (currentCount % 3);
+        fruit = (FruitsEnum) (currentCount % Fruits.Enumerable().Count());
+
     }
 }

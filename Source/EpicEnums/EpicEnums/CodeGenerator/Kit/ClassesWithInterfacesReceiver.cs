@@ -4,11 +4,11 @@ using Microsoft.CodeAnalysis;
 
 public class ClassesWithInterfacesReceiver : SyntaxReceiver
 {
-    private string implementedInterface;
-    public ClassesWithInterfacesReceiver(string implementedInterface) => this.implementedInterface = implementedInterface;
+    private readonly string _implementedInterface;
+    public ClassesWithInterfacesReceiver(string implementedInterface) => this._implementedInterface = implementedInterface;
 
     public override bool CollectClassSymbol { get; } = true;
 
     protected override bool ShouldCollectClassSymbol(INamedTypeSymbol classSymbol)
-        => classSymbol.IsImplements(implementedInterface);
+        => classSymbol.IsImplements(_implementedInterface);
 }

@@ -10,11 +10,12 @@ public class SyntaxReceiver : ISyntaxContextReceiver
     public List<IFieldSymbol> Fields { get; } = new();
     public List<IPropertySymbol> Properties { get; } = new();
     public List<INamedTypeSymbol> Classes { get; } = new();
-
+    public List<INamedTypeSymbol> Records { get; } = new();
     public virtual bool CollectMethodSymbol { get; } = false;
     public virtual bool CollectFieldSymbol { get; } = false;
     public virtual bool CollectPropertySymbol { get; } = false;
     public virtual bool CollectClassSymbol { get; } = false;
+    public virtual bool CollectRecordSymbol { get; } = false;
 
     /// <inheritdoc/>
     public void OnVisitSyntaxNode(GeneratorSyntaxContext context)
@@ -32,6 +33,9 @@ public class SyntaxReceiver : ISyntaxContextReceiver
                 break;
             case ClassDeclarationSyntax classDeclarationSyntax:
                 OnVisitClassDeclaration(classDeclarationSyntax, context.SemanticModel);
+                break;
+            case RecordDeclarationSyntax recordDeclarationSyntax:
+                OnVisitRecordDeclaration(recordDeclarationSyntax, context.SemanticModel);
                 break;
         }
     }
@@ -132,6 +136,33 @@ public class SyntaxReceiver : ISyntaxContextReceiver
     protected virtual bool ShouldCollectPropertySymbol(IPropertySymbol propertySymbol)
         => true;
 
+    protected virtual void OnVisitRecordDeclaration(RecordDeclarationSyntax recordDeclarationSyntax, SemanticModel model)
+    {
+        if (!CollectRecordSymbol)
+        {
+            return;
+        }
+
+        if (!ShouldCollectRecordDeclaration(recordDeclarationSyntax))
+        {
+            return;
+        }
+
+        var recordSymbol = model.GetDeclaredSymbol(recordDeclarationSyntax) as INamedTypeSymbol;
+        if (recordSymbol == null)
+        {
+            return;
+        }
+
+        if (!ShouldCollectRecordSymbol(recordSymbol))
+        {
+            return;
+        }
+
+        Records.Add(recordSymbol);
+    }
+
+
     protected virtual void OnVisitClassDeclaration(ClassDeclarationSyntax classDeclarationSyntax, SemanticModel model)
     {
         if (!CollectClassSymbol)
@@ -162,5 +193,11 @@ public class SyntaxReceiver : ISyntaxContextReceiver
         => true;
 
     protected virtual bool ShouldCollectClassSymbol(INamedTypeSymbol classSymbol)
+        => true;
+
+    protected virtual bool ShouldCollectRecordDeclaration(RecordDeclarationSyntax recordDeclarationSyntax)
+        => true;
+
+    protected virtual bool ShouldCollectRecordSymbol(INamedTypeSymbol recordSymbol)
         => true;
 }
