@@ -1,0 +1,22 @@
+﻿@page "/counter"
+@using SampleApp.EpicEnums;
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+@fruit
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private int currentCount = 0;
+    private FruitsEnum fruit = FruitsEnum.Banana; 
+
+    private void IncrementCount()
+    {
+        currentCount++;
+        fruit = (FruitsEnum) (currentCount % 3);
+    }
+}
