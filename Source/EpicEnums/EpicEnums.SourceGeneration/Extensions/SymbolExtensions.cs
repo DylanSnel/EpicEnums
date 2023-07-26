@@ -1,4 +1,4 @@
-namespace EpicEnums.CodeGenerator.Kit;
+namespace EpicEnums.SourceGeneration.Extensions;
 
 using Microsoft.CodeAnalysis;
 using System.Linq;

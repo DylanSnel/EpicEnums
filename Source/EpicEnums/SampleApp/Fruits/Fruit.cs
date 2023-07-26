@@ -10,7 +10,7 @@ public partial record Fruit : EpicEnumValue
 
     #region ShouldBeGenerated
 
-    public FruitsEnum EnumValue { get; init; }
+    public FruitsEnum FruitsValue { get; init; }
 
     #endregion
 }

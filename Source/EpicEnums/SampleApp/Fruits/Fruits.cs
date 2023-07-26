@@ -10,23 +10,29 @@ public partial record Fruits : EpicEnum<Fruit>, IEnumerable<Fruit>
     public static Fruit Orange { get; } = new() { Name = "Orange", Description = "An orange fruit" };
     public static Fruit Papaya { get; } = new() { Name = "Papaya", Description = "An also orange fruit" };
     public static Fruit DragonFruit { get; } = new() { Name = "Dragon Fruit", Description = "A pink fruit" };
+    public static Fruit Grape { get; } = new() { Name = "Grape", Description = "A purple fruit" };
+    public static Fruit StarFruit { get; } = new() { Name = "Star Fruit", Description = "A yellow fruit" };
+    public static Fruit Durian { get; } = new() { Name = "Durian", Description = "A smelly fruit" };
 
     #region ShouldBeGenerated
 
     static Fruits()
     {
-        Apple = Apple with { EnumValue = FruitsEnum.Apple };
-        Banana = Banana with { EnumValue = FruitsEnum.Banana };
-        Orange = Orange with { EnumValue = FruitsEnum.Orange };
-        Papaya = Papaya with { EnumValue = FruitsEnum.Papaya };
-        DragonFruit = DragonFruit with { EnumValue = FruitsEnum.DragonFruit };
+        Apple = Apple with { FruitsValue = FruitsEnum.Apple };
+        Banana = Banana with { FruitsValue = FruitsEnum.Banana };
+        Orange = Orange with { FruitsValue = FruitsEnum.Orange };
+        Papaya = Papaya with { FruitsValue = FruitsEnum.Papaya };
+        DragonFruit = DragonFruit with { FruitsValue = FruitsEnum.DragonFruit };
+        Grape = Grape with { FruitsValue = FruitsEnum.Grape };
+        StarFruit = StarFruit with { FruitsValue = FruitsEnum.StarFruit };
+        Durian = Durian with { FruitsValue = FruitsEnum.Durian };
     }
 
     public Fruit this[FruitsEnum fruit]
         => FromEnum(fruit);
 
     public static Fruit FromEnum(FruitsEnum brand)
-        => Enumerable().FirstOrDefault(x => x.EnumValue == brand) ?? throw new FruitNotSupportedException(brand);
+        => Enumerable().FirstOrDefault(x => x.FruitsValue == brand) ?? throw new FruitNotSupportedException(brand);
 
     public static IEnumerable<Fruit> Enumerable()
     {

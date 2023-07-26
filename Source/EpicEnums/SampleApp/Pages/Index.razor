@@ -1,5 +1,6 @@
 ﻿@page "/"
-@using SampleApp.EpicEnums;
+@    using SampleApp.EpicEnums;
+    using SampleApp.Fruits;
 
 <PageTitle>Index</PageTitle>
 
@@ -13,4 +14,4 @@ Welcome to your new app.
 @foreach(var fruit in Fruits.Enumerable())
 {
     <p>@fruit</p>
-})
+}
