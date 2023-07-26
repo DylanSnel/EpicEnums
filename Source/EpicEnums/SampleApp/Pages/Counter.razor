@@ -1,6 +1,5 @@
 ﻿@page "/counter"
-@    using SampleApp.EpicEnums;
-    using SampleApp.Fruits;
+@using SampleApp.Fruits;
 <PageTitle>Counter</PageTitle>
 
 <h1>Counter</h1>
@@ -18,7 +17,7 @@
     private void IncrementCount()
     {
         currentCount++;
-        fruit = (FruitsEnum) (currentCount % Fruits.Enumerable().Count());
+        //fruit = (FruitsEnum) (currentCount % Fruits.Enumerable().Count());
 
     }
 }

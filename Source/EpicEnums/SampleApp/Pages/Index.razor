@@ -1,6 +1,6 @@
 ﻿@page "/"
-@    using SampleApp.EpicEnums;
-    using SampleApp.Fruits;
+@using SampleApp.AdminPermissions;
+@using SampleApp.Fruits;
 
 <PageTitle>Index</PageTitle>
 
@@ -14,4 +14,9 @@ Welcome to your new app.
 @foreach(var fruit in Fruits.Enumerable())
 {
     <p>@fruit</p>
+}
+
+@foreach (var adminpermission in UserPermissions.Enumerable())
+{
+    <p>@adminpermission</p>
 }

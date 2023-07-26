@@ -1,16 +1,7 @@
-﻿using EpicEnums;
+﻿namespace SampleApp.Fruits;
 
-namespace SampleApp.EpicEnums;
-
-public partial record Fruit : EpicEnumValue
+public partial record Fruit
 {
     public required string Name { get; init; }
     public required string Description { get; init; }
-
-
-    #region ShouldBeGenerated
-
-    public FruitsEnum FruitsValue { get; init; }
-
-    #endregion
 }
