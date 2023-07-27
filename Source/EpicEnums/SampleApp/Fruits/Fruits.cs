@@ -12,6 +12,5 @@ public partial record Fruits : EpicEnum<Fruit>
     public static Fruit Grape { get; } = new() { Name = "Grape", Description = "A purple fruit" };
     public static Fruit StarFruit { get; } = new() { Name = "Star Fruit", Description = "A yellow fruit" };
     public static Fruit Durian { get; } = new() { Name = "Durian", Description = "A smelly fruit" };
-
 }
 
