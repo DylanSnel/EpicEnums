@@ -90,8 +90,6 @@ public class EnumGenerator : IIncrementalGenerator
 
         // Convert each EnumDeclarationSyntax to an EnumToGenerate
         List<EnumToGenerate> enumsToGenerate = GetTypesToGenerate(compilation, distinctEnums, context.CancellationToken);
-
-
         foreach (var enumToGenerate in enumsToGenerate)
         {
             if (enumToGenerate.Values.Count < 1)
@@ -115,7 +113,15 @@ public class EnumGenerator : IIncrementalGenerator
 
                 {{{(enumToGenerate.IsPublic ? "public" : "internal")}}} partial record {{{enumToGenerate.Type}}} 
                 {
-                    public {{{enumToGenerate.EnumName}}}? {{{enumToGenerate.ValueName}}} { get; init; }
+                    internal {{{enumToGenerate.EnumName}}}? {{{enumToGenerate.ValueName}}}
+                    {
+                        init
+                        {
+                            _{{{enumToGenerate.ValueName}}} = value;
+                        }
+                    }
+
+                    private {{{enumToGenerate.EnumName}}}? _{{{enumToGenerate.ValueName}}};
                 }
                 """");
 
@@ -149,15 +155,23 @@ public class EnumGenerator : IIncrementalGenerator
                         {{{constructor}}}
                     }
 
-                    public {{{enumToGenerate.Type}}} this[{{{enumToGenerate.EnumName}}} {{{enumToGenerate.Type.ToLower()}}}]
-                        => FromEnum({{{enumToGenerate.Type.ToLower()}}});
+                    //public {{{enumToGenerate.Type}}} this[{{{enumToGenerate.EnumName}}} {{{enumToGenerate.Type.ToLower()}}}]
+                    //    => FromEnum({{{enumToGenerate.Type.ToLower()}}});
 
-                    public static {{{enumToGenerate.Type}}} FromEnum({{{enumToGenerate.EnumName}}} {{{enumToGenerate.Type.ToLower()}}})
-                        => Enumerable().FirstOrDefault(x => x.{{{enumToGenerate.ValueName}}} == {{{enumToGenerate.Type.ToLower()}}}) ?? throw new Exception();
+                    //public static {{{enumToGenerate.Type}}} FromEnum({{{enumToGenerate.EnumName}}} {{{enumToGenerate.Type.ToLower()}}})
+                    //    => Enumerable().FirstOrDefault(x => x.{{{enumToGenerate.ValueName}}} == {{{enumToGenerate.Type.ToLower()}}}) ?? throw new Exception();
 
                     public static IEnumerable<{{{enumToGenerate.Type}}}> Enumerable()
                     {
                         {{{enumerator}}}
+                    }
+
+                    public static IEnumerable<{{{enumToGenerate.Type}}}> Values
+                    {
+                        get
+                        {
+                            return Enumerable();
+                        }
                     }
 
                     public IEnumerator<{{{enumToGenerate.Type}}}> GetEnumerator()
