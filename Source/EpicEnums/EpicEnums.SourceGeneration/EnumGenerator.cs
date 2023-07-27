@@ -163,10 +163,12 @@ public class EnumGenerator : IIncrementalGenerator
             constructor.AppendLine($"{property} = {property} with {{ {enumToGenerate.ValueName} = {enumToGenerate.EnumName}.{property} }};");
             selectorSwitch.AppendLine($"{enumToGenerate.EnumName}.{property} => {property},");
         }
+        selectorSwitch.AppendLine($"_ => throw new UnsupportedValueException($\"{{ {enumToGenerate.Type.ToLower()} }}\")");
 
         sb.AppendLine(
            $$$""""
                 using System.Collections;
+                using EpicEnums.Exceptions;
 
                 namespace {{{enumToGenerate.Namespace}}};
 
