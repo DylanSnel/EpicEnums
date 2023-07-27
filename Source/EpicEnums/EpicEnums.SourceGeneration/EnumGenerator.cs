@@ -109,6 +109,8 @@ public class EnumGenerator : IIncrementalGenerator
         sb.AppendLine(Header);
         sb.AppendLine(
            $$$""""
+                using EpicEnums.Exceptions;
+
                 namespace {{{enumToGenerate.Namespace}}};
 
                 {{{(enumToGenerate.IsPublic ? "public" : "internal")}}} partial record {{{enumToGenerate.Type}}} 
@@ -122,6 +124,24 @@ public class EnumGenerator : IIncrementalGenerator
                     }
 
                     private {{{enumToGenerate.EnumName}}}? _{{{enumToGenerate.ValueName}}};
+
+                    public bool Is{{{enumToGenerate.EnumName}}}()
+                    {
+                        return _{{{enumToGenerate.ValueName}}} is not null;
+                    }
+                    public static implicit operator {{{enumToGenerate.EnumName}}}({{{enumToGenerate.Type}}} {{{enumToGenerate.Type.ToLower()}}})
+                    {
+                        return {{{enumToGenerate.Type.ToLower()}}}._{{{enumToGenerate.ValueName}}} ?? throw new UnsupportedValueException();
+                    }
+
+                    public static bool operator ==({{{enumToGenerate.Type}}} left, {{{enumToGenerate.EnumName}}} right)
+                    {
+                        return left._{{{enumToGenerate.ValueName}}} == right;
+                    }
+                    public static bool operator !=({{{enumToGenerate.Type}}} left, {{{enumToGenerate.EnumName}}} right)
+                    {
+                        return left._{{{enumToGenerate.ValueName}}} != right;
+                    }
                 }
                 """");
 
@@ -135,11 +155,13 @@ public class EnumGenerator : IIncrementalGenerator
         sb.AppendLine(Header);
         var enumerator = new StringBuilder();
         var constructor = new StringBuilder();
+        var selectorSwitch = new StringBuilder();
 
         foreach (var property in enumToGenerate.Values)
         {
             enumerator.AppendLine($"yield return {property};");
             constructor.AppendLine($"{property} = {property} with {{ {enumToGenerate.ValueName} = {enumToGenerate.EnumName}.{property} }};");
+            selectorSwitch.AppendLine($"{enumToGenerate.EnumName}.{property} => {property},");
         }
 
         sb.AppendLine(
@@ -155,11 +177,15 @@ public class EnumGenerator : IIncrementalGenerator
                         {{{constructor}}}
                     }
 
-                    //public {{{enumToGenerate.Type}}} this[{{{enumToGenerate.EnumName}}} {{{enumToGenerate.Type.ToLower()}}}]
-                    //    => FromEnum({{{enumToGenerate.Type.ToLower()}}});
+                    public {{{enumToGenerate.Type}}} this[{{{enumToGenerate.EnumName}}} {{{enumToGenerate.Type.ToLower()}}}]
+                        => FromEnum({{{enumToGenerate.Type.ToLower()}}});
 
-                    //public static {{{enumToGenerate.Type}}} FromEnum({{{enumToGenerate.EnumName}}} {{{enumToGenerate.Type.ToLower()}}})
-                    //    => Enumerable().FirstOrDefault(x => x.{{{enumToGenerate.ValueName}}} == {{{enumToGenerate.Type.ToLower()}}}) ?? throw new Exception();
+                    public static {{{enumToGenerate.Type}}} FromEnum({{{enumToGenerate.EnumName}}} {{{enumToGenerate.Type.ToLower()}}})
+                        => {{{enumToGenerate.Type.ToLower()}}} switch
+                            {
+                                {{{selectorSwitch}}}
+                            };
+
 
                     public static IEnumerable<{{{enumToGenerate.Type}}}> Enumerable()
                     {
@@ -202,6 +228,11 @@ public class EnumGenerator : IIncrementalGenerator
             sb.AppendLine("    " + property + ",");
         }
 
+        if (sb.Length > 0)
+        {
+            // remove the last character which is the comma
+            sb.Remove(sb.Length - 3, 1);
+        }
         sb.AppendLine("}");
         context.AddSource($"{enumToGenerate.Name}Enum.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
     }
@@ -242,8 +273,7 @@ public class EnumGenerator : IIncrementalGenerator
             var enumType = baseType!.IsGenericType ? baseType.TypeArguments.First() : baseType.BaseType!.TypeArguments.First();
 
             var properties = recordSymbol.GetMembers().OfType<IPropertySymbol>()
-                                .Where(m => SymbolEqualityComparer.Default.Equals(m.Type, enumType))
-                                .Where(x => x.Name != "this[]");
+                                .Where(m => SymbolEqualityComparer.Default.Equals(m.Type, enumType));
             var members = properties.Select(x => x.Name).ToList();
 
             // Create an EnumToGenerate for use in the generation phase
