@@ -7,20 +7,46 @@
 
 <h1>Epic Enums are here</h1>
 
-Welcome to your new app.
+<p>Enums are great, but they can be better. EpicEnums are here to help.</p>
 
-<pre><code class='language-cs'>
-public void Main()
+<p>Here are some examples of how normal enums work:</p>
+
+<p>(Ps. im struggling to get highlight js to work)</p>
+
+<CodeSnippet>
+public enum FruitsEnum
 {
-  Console.WriteLine("Github Style Code blocks");
+    [Description("Apple")]
+    Apple,
+    [Description("Banana")]
+    Banana,
+    [Description("Orange")]
+    Orange,
+    [Description("Dragon fruit")]
+    DragonFruit
 }
-</code></pre>
-@foreach (var fruit in Dummies.Enumerable())
+</CodeSnippet>
+
+<p>We might wanna loop over this enum: </p>
+<CodeSnippet>
+var values = Enum.GetValues(typeof(FruitsEnum));
+
+foreach(var value in values)
 {
-    <p>@fruit</p>
-
-
+    value; //Get description here somehow
 }
+</CodeSnippet>
+
+
+
+<p>Now while this is all a lot of fun.. this can be better</p>
+
+
+
+We could
+
+
+
 
 
 @foreach(var fruit in Fruits.Values)
@@ -28,7 +54,3 @@ public void Main()
     <p>@fruit</p>
 }
 
-@foreach (var adminpermission in UserPermissions.Values)
-{
-    <p>@adminpermission</p>
-}
