@@ -230,11 +230,11 @@ internal class EnumGenerator : IIncrementalGenerator
             sb.AppendLine("    " + property + ",");
         }
 
-        if (sb.Length > 0)
-        {
-            // remove the last character which is the comma
-            sb.Remove(sb.Length - 3, 1);
-        }
+        //if (sb.Length > 0)
+        //{
+        //    // remove the last character which is the comma
+        //    sb.Remove(sb.Length - 3, 1);
+        //}
         sb.AppendLine("}");
         context.AddSource($"{enumToGenerate.Name}Enum.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
     }
