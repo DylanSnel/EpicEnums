@@ -11,9 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{66808C66
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleApp", "SampleApp\SampleApp.csproj", "{EAB7F038-523A-4822-8277-FFE20FE93AA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpicEnums.SourceGeneration", "EpicEnums.SourceGeneration\EpicEnums.SourceGeneration.csproj", "{4D7ACAC5-7869-4C93-9ADC-5AE09C931172}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpicEnums.Tests", "EpicEnums.Tests\EpicEnums.Tests.csproj", "{415EAB36-6551-4DE4-B8D1-F94B675A3140}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicEnums.Tests", "EpicEnums.Tests\EpicEnums.Tests.csproj", "{415EAB36-6551-4DE4-B8D1-F94B675A3140}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{EAB7F038-523A-4822-8277-FFE20FE93AA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAB7F038-523A-4822-8277-FFE20FE93AA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAB7F038-523A-4822-8277-FFE20FE93AA2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4D7ACAC5-7869-4C93-9ADC-5AE09C931172}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4D7ACAC5-7869-4C93-9ADC-5AE09C931172}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4D7ACAC5-7869-4C93-9ADC-5AE09C931172}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4D7ACAC5-7869-4C93-9ADC-5AE09C931172}.Release|Any CPU.Build.0 = Release|Any CPU
 		{415EAB36-6551-4DE4-B8D1-F94B675A3140}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{415EAB36-6551-4DE4-B8D1-F94B675A3140}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{415EAB36-6551-4DE4-B8D1-F94B675A3140}.Release|Any CPU.ActiveCfg = Release|Any CPU

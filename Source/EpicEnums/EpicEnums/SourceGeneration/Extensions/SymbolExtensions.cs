@@ -3,7 +3,7 @@ namespace EpicEnums.SourceGeneration.Extensions;
 using Microsoft.CodeAnalysis;
 using System.Linq;
 
-public static class SymbolExtensions
+internal static class SymbolExtensions
 {
     public static bool HasAttribute(this ISymbol symbol, string atrributeName)
     {

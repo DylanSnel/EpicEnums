@@ -1,31 +1,27 @@
-﻿using EpicEnums.SourceGeneration;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-
-namespace EpicEnums.Tests.Helpers;
+﻿namespace EpicEnums.Tests.Helpers;
 public static class TestHelper
 {
-    public static Task Verify(string source)
-    {
-        // Parse the provided string into a C# syntax tree
-        SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(source);
+    //public static Task Verify(string source)
+    //{
+    //    // Parse the provided string into a C# syntax tree
+    //    SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(source);
 
-        // Create a Roslyn compilation for the syntax tree.
-        CSharpCompilation compilation = CSharpCompilation.Create(
-            assemblyName: "Tests",
-            syntaxTrees: new[] { syntaxTree });
+    //    // Create a Roslyn compilation for the syntax tree.
+    //    CSharpCompilation compilation = CSharpCompilation.Create(
+    //        assemblyName: "Tests",
+    //        syntaxTrees: new[] { syntaxTree });
 
 
-        // Create an instance of our EnumGenerator incremental source generator
-        var generator = new EnumGenerator();
+    //    // Create an instance of our EnumGenerator incremental source generator
+    //    var generator = new EnumGenerator();
 
-        // The GeneratorDriver is used to run our generator against a compilation
-        GeneratorDriver driver = CSharpGeneratorDriver.Create(generator);
+    //    // The GeneratorDriver is used to run our generator against a compilation
+    //    GeneratorDriver driver = CSharpGeneratorDriver.Create(generator);
 
-        // Run the source generator!
-        driver = driver.RunGenerators(compilation);
+    //    // Run the source generator!
+    //    driver = driver.RunGenerators(compilation);
 
-        // Use verify to snapshot test the source generator output!
-        return Verifier.Verify(driver);
-    }
+    //    // Use verify to snapshot test the source generator output!
+    //    return Verifier.Verify(driver);
+    //}
 }

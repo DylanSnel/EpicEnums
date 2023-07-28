@@ -9,7 +9,7 @@ namespace EpicEnums.SourceGeneration;
 
 
 [Generator]
-public class EnumGenerator : IIncrementalGenerator
+internal class EnumGenerator : IIncrementalGenerator
 {
     private const string Header = """
                                     //------------------------------------------------------------------------------
