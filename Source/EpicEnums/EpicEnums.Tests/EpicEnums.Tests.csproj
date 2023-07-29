@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="6.11.0" />
     <PackageReference Include="Verify.XUnit" Version="20.6.0" />
     <PackageReference Include="Verify.SourceGenerators" Version="2.1.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="all" />
@@ -30,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EpicEnums\EpicEnums.csproj" />
+    <ProjectReference Include="..\EpicEnums\EpicEnums.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
   </ItemGroup>
 
 </Project>

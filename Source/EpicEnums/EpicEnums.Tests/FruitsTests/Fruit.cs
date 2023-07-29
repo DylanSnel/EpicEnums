@@ -1,6 +1,4 @@
-﻿using EpicEnums;
-
-namespace SampleApp.Fruits;
+﻿namespace EpicEnums.Tests.FruitsTests;
 
 public partial record Fruit : IEpicEnumValue
 {

@@ -1,6 +1,8 @@
-﻿namespace SampleApp.AdminPermissions;
+﻿using EpicEnums;
 
-public partial record AdminPermission
+namespace SampleApp.AdminPermissions;
+
+public partial record AdminPermission : IEpicEnumValue
 {
     public required string Name { get; init; }
     public required string Description { get; init; }

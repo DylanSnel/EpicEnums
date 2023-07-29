@@ -4,19 +4,25 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
     <LangVersion>11.0</LangVersion>
-    <Version>1.3.1</Version>
+    <Version>1.3.4</Version>
+    <PackageOutputPath>./nupkgs</PackageOutputPath>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IncludeBuildOutput>false</IncludeBuildOutput>
+    <InternalsVisibleTo>EpicEnums.Tests</InternalsVisibleTo>
+    
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    <None Include="..\..\..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.6.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
