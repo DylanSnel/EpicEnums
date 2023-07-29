@@ -86,7 +86,7 @@ Epic Enums works based on source generation, but needs some work from you as a d
 ### The value record
 
 
-```charp
+```csharp
 using EpicEnums;
 
 namespace SampleApp.NotVegetables;
@@ -96,14 +96,13 @@ public partial record Fruit : IEpicEnumValue  // It is very important that this 
     public required string Name { get; init; }
     public required string Description { get; init; }
     public required bool LikeAble { get; init; }
-
 }
 ```
 
 ### The enum record
 
 
-```charp
+```csharp
 using EpicEnums;
 
 namespace SampleApp.NotVegetables;
