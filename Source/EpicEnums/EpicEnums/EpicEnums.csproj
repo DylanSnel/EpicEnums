@@ -6,6 +6,7 @@
     <LangVersion>11.0</LangVersion>
     <PackageOutputPath>./nupkgs</PackageOutputPath>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <Nullable>enable</Nullable>
     <Deterministic>false</Deterministic>
     <ImplicitUsings>enable</ImplicitUsings>
     <PackageReadmeFile>README.md</PackageReadmeFile>
