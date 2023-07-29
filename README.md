@@ -107,7 +107,7 @@ using EpicEnums;
 
 namespace SampleApp.NotVegetables;
 
-public partial record Fruits : EpicEnum<Fruit>
+public partial record Fruits : EpicEnum<Fruit> // It is very important that this is a partial record
 {
     public static Fruit Apple { get; } = new() { Name = "Apple", Description = "A red fruit", LikeAble = true };
     public static Fruit Banana { get; } = new() { Name = "Banana", Description = "A yellow fruit", LikeAble = true };
