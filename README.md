@@ -70,11 +70,53 @@ Reflection can be slow and give issues in AOT compiling. Plus it can be kind of 
 # A Better enum
 (The name epic enums was chosen because it alliterats ever so lovely)
 
-### Installing the package
+## Installing the package
 
 The epic enums package can be found on [nuget](https://www.nuget.org/packages/EpicEnums).
 
 ```dotnet add package EpicEnums```
 
 
-### Creating an Epic Enum
+## Creating your first Epic Enum
+
+Epic Enums works based on source generation, but needs some work from you as a developer.
+
+**Warning:** Epic enums has some guidelines on how to work with them. If you dont follow these guidelines unexpected behaviour might happen.
+
+### The value record
+
+
+```charp
+using EpicEnums;
+
+namespace SampleApp.NotVegetables;
+
+public partial record Fruit : IEpicEnumValue  // It is very important that this is a partial record
+{
+    public required string Name { get; init; }
+    public required string Description { get; init; }
+    public required bool LikeAble { get; init; }
+
+}
+```
+
+### The enum record
+
+
+```charp
+using EpicEnums;
+
+namespace SampleApp.NotVegetables;
+
+public partial record Fruits : EpicEnum<Fruit>
+{
+    public static Fruit Apple { get; } = new() { Name = "Apple", Description = "A red fruit", LikeAble = true };
+    public static Fruit Banana { get; } = new() { Name = "Banana", Description = "A yellow fruit", LikeAble = true };
+    public static Fruit Orange { get; } = new() { Name = "Orange", Description = "An orange fruit", LikeAble = false };
+    public static Fruit DragonFruit { get; } = new() { Name = "Dragon Fruit", Description = "A pink fruit", LikeAble = true };
+}
+```
+
+
+
+

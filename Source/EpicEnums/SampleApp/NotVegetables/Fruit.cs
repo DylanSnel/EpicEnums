@@ -1,6 +1,6 @@
 ﻿using EpicEnums;
 
-namespace SampleApp.Fruits;
+namespace SampleApp.NotVegetables;
 
 public partial record Fruit : IEpicEnumValue
 {
