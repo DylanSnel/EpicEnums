@@ -134,6 +134,11 @@ internal class EnumGenerator : IIncrementalGenerator
                         return {{{enumToGenerate.Type.ToLower()}}}._{{{enumToGenerate.ValueName}}} ?? throw new UnsupportedValueException();
                     }
 
+                    public static implicit operator {{{enumToGenerate.Type}}}({{{enumToGenerate.EnumName}}} {{{enumToGenerate.Type.ToLower()}}})
+                    {
+                        return {{{enumToGenerate.Name}}}.FromEnum({{{enumToGenerate.Type.ToLower()}}});
+                    }
+
                     public static bool operator ==({{{enumToGenerate.Type}}} left, {{{enumToGenerate.EnumName}}} right)
                     {
                         return left._{{{enumToGenerate.ValueName}}} == right;

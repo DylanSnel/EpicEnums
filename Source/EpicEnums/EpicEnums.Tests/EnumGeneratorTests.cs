@@ -7,10 +7,25 @@ namespace EpicEnums.Tests;
 public class EnumGeneratorTests
 {
     [Fact]
-    public void FruitsEnum_Exists()
+    public void FruitsEnum_Exists_ShouldNotCrash()
+    {
+        var x = FruitsEnum.Apple;
+        x.Should().BeOneOf(FruitsEnum.Apple, FruitsEnum.Banana, FruitsEnum.Orange, FruitsEnum.DragonFruit);
+    }
+
+    [Fact]
+    public void FruitsEnum_Assignments()
     {
         (Fruits.Apple == FruitsEnum.Apple).Should().BeTrue();
+
+        Fruit apple = FruitsEnum.Apple;
+
+        FruitsEnum x = Fruits.Apple;
+        var y = (FruitsEnum)Fruits.Apple;
+        var z = (Fruit)FruitsEnum.Apple;
     }
+
+
 
     //[Fact]
     //public Task GeneratesEnumCorrectly()
