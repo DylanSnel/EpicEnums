@@ -287,7 +287,7 @@ internal class EnumGenerator : IIncrementalGenerator
 
 }
 
-public readonly struct EnumToGenerate
+internal readonly struct EnumToGenerate
 {
     public readonly string Name;
     public readonly string Namespace;
