@@ -9,7 +9,6 @@
     <Deterministic>false</Deterministic>
     <ImplicitUsings>enable</ImplicitUsings>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <InternalsVisibleTo>EpicEnums.Tests</InternalsVisibleTo>
     
