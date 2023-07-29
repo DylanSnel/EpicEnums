@@ -7,7 +7,11 @@
     <PackageOutputPath>./nupkgs</PackageOutputPath>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <Nullable>enable</Nullable>
-    <Deterministic>false</Deterministic>
+    <PackageId>EpicEnums</PackageId>
+    <PackageTags>EpicEnums</PackageTags>
+    <Authors>Dylan Snel</Authors>
+    <Title>Epic Enums</Title>
+    <Description>Generate C# enums with extra features.</Description>
     <ImplicitUsings>enable</ImplicitUsings>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <InternalsVisibleTo>EpicEnums.Tests</InternalsVisibleTo>
