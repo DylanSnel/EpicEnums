@@ -10,6 +10,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <InternalsVisibleTo>EpicEnums.Tests</InternalsVisibleTo>
+    <Version>1.4.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
