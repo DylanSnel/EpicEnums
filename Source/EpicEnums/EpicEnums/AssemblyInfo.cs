@@ -6,12 +6,6 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("Slyng")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.*")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.*")]
-[assembly: System.Reflection.AssemblyProductAttribute("EpicEnums")]
-[assembly: System.Reflection.AssemblyTitleAttribute("Epic Enums")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.*")]
 // Setting ComVisible to false makes the types in this assembly not visible to COM
 // components.  If you need to access a type in this assembly from COM, set the ComVisible

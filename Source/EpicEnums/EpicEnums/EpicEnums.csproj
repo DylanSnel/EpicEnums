@@ -5,13 +5,11 @@
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
     <LangVersion>11.0</LangVersion>
     <PackageOutputPath>./nupkgs</PackageOutputPath>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <Deterministic>false</Deterministic>
     <ImplicitUsings>enable</ImplicitUsings>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <IncludeBuildOutput>false</IncludeBuildOutput>
     <InternalsVisibleTo>EpicEnums.Tests</InternalsVisibleTo>
-    
   </PropertyGroup>
 
   <ItemGroup>
