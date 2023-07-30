@@ -67,7 +67,7 @@ public class Foo
 
 Reflection can be slow and give issues in AOT compiling. Plus it can be kind of tedious.
 
-# A Better enum
+# Getting Started
 (The name epic enums was chosen because it alliterates ever so lovely)
 
 ## Installing the package
@@ -101,7 +101,6 @@ public partial record Fruit : IEpicEnumValue  // It is very important that this 
 
 ### The enum record
 
-
 ```csharp
 using EpicEnums;
 
@@ -111,7 +110,7 @@ public partial record Fruits : EpicEnum<Fruit> // It is very important that this
 {
     public static Fruit Apple { get; } = new() { Name = "Apple", Description = "A red fruit", LikeAble = true };
     public static Fruit Banana { get; } = new() { Name = "Banana", Description = "A yellow fruit", LikeAble = true };
-    public static Fruit Orange { get; } = new() { Name = "Orange", Description = "An orange fruit", LikeAble = false };
+    public static Fruit Orange { get; } = new() { Name = "Orange", Description = "An orange fruit", LikeAble = false }; //In reality i like most fruit. no hate✌️
     public static Fruit DragonFruit { get; } = new() { Name = "Dragon Fruit", Description = "A pink fruit", LikeAble = true };
 }
 ```
@@ -121,7 +120,7 @@ public partial record Fruits : EpicEnum<Fruit> // It is very important that this
 Now after first build the source generator will do its magic we have access to the FruitsEnum. Together with some extensions added to the partial records we can now use the Fruit record and the enum almost interchangeably.
 
 > **Warning**
-> Sometimes visual studio will indicate an error, but your application will build. Just restart Visual Studio, and in general it shouldnt be an issue anymore.
+> Sometimes Visual Studio will indicate an error, but your application will build. Just restart Visual Studio, and in general it shouldnt be an issue anymore.
 
 ```csharp
 public class Foo
@@ -136,13 +135,270 @@ public class Foo
 }
 ```
 
+## Incremental changes
+
+The source generator runs incrementally, which means that whenever you add a property to the Fruits record it will show up on the enum on save.
+
+```csharp
+using EpicEnums;
+
+namespace SampleApp.NotVegetables;
+
+public partial record Fruits : EpicEnum<Fruit>
+{
+    public static Fruit Apple { get; } = new() { Name = "Apple", Description = "A red fruit", LikeAble = true };
+    public static Fruit Banana { get; } = new() { Name = "Banana", Description = "A yellow fruit", LikeAble = true };
+    public static Fruit Orange { get; } = new() { Name = "Orange", Description = "An orange fruit", LikeAble = false }; 
+    public static Fruit DragonFruit { get; } = new() { Name = "Dragon Fruit", Description = "A pink fruit", LikeAble = true };
+
+    // New Code
+    public static Fruit Grape { get; } = new() { Name = "Grape", Description = "A purple fruit", LikeAble = true };
+}
+
+```
+
+After pressing save `FruitsEnum.Grape` is instantly accessible in code
+
 
 # Features
 
+Epic enums was created because I lacked some features from enums. This is the second attempt to making it work since the attempt using reflections wasnt that successful. The features will probably grow whenever new scenarios arise (Or feel free to contribute).
+
 ## Enumeration
 
+We can enumerate over the Fruits by u calling `Fruits.Values`.
+
+Lets see it in some blazor code:
+
+```csharp
+@foreach (var fruit in Fruits.Values)
+{
+    <p>@fruit</p>
+}
+
+//Output
+Fruit { Name = Apple, Description = A red fruit, LikeAble = True }
+
+Fruit { Name = Banana, Description = A yellow fruit, LikeAble = True }
+
+Fruit { Name = Orange, Description = An orange fruit, LikeAble = False }
+
+Fruit { Name = Dragon Fruit, Description = A pink fruit, LikeAble = True }
+```
+
+
+```csharp
+@foreach (FruitsEnum fruit in Fruits.Values)
+{
+    <p>@fruit</p>
+}
+
+//Output
+Apple
+
+Banana
+
+Orange
+
+DragonFruit
+```
 
 
 ## Conversion
 
-## Compare 
+For conversions you can best look at the unit test that ill lazily show here:
+
+```csharp
+Fruit apple = FruitsEnum.Apple;
+apple.Should().Be(Fruits.Apple);
+
+FruitsEnum banana = Fruits.Banana;
+banana.Should().Be(FruitsEnum.Banana);
+
+var dragonFruit = (FruitsEnum)Fruits.DragonFruit;
+dragonFruit.Should().Be(FruitsEnum.DragonFruit);
+
+var orange = (Fruit)FruitsEnum.Orange;
+orange.Should().Be(Fruits.Orange);
+```
+
+
+
+
+## Comparison 
+
+```csharp
+Fruits.Apple == FruitsEnum.Apple            //True
+Fruits.Apple != FruitsEnum.Banana           //True
+
+Fruits.Apple == FruitsEnum.Banana           //False
+Fruits.Apple != FruitsEnum.Apple            //False
+
+FruitsEnum.Apple == Fruits.Apple            //True
+FruitsEnum.Apple != Fruits.Banana           //True
+
+FruitsEnum.Apple == Fruits.Banana           //False
+FruitsEnum.Apple != Fruits.Apple            //False
+
+Fruits.Apple == Fruits.Apple                //True
+Fruits.Apple != Fruits.Banana               //True
+```
+
+The `Fruit` record is also extended with a private property `FruitsEnum _FruitsValue` that every instance gets filled with the corresponding `FruitsEnum` value. You can choose yourself if you want to expose the property by whatever means you want.
+
+# Generated code
+
+In this section you can see what the source generator will generate with our example. I hope this makes it easier to understand or debug issues. You might find some code not mentioned in the guides or features above. Some of them are intended for features in more complex scenarios, which are not fully released. 
+
+## SampleApp.NotVegetables.FruitsEnum.g.cs
+
+```csharp
+//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by the EpicEnums source generator
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+#nullable enable
+namespace SampleApp.NotVegetables;
+public enum FruitsEnum
+{
+    Apple,
+    Banana,
+    Orange,
+    DragonFruit, // For some reason if this comma is not added it wont register the last item, in this case DragonFruit would not be found, weird but okay i guess.
+}
+
+```
+
+## SampleApp.NotVegetables.Fruits.Fruit.g.cs
+
+```csharp
+//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by the EpicEnums source generator
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+#nullable enable
+using EpicEnums.Exceptions;
+
+namespace SampleApp.NotVegetables;
+
+public partial record Fruit 
+{
+    internal FruitsEnum? FruitsValue
+    {
+        init
+        {
+            _FruitsValue = value;
+        }
+    }
+
+    private FruitsEnum? _FruitsValue;
+
+    public bool IsFruitsEnum()
+    {
+        return _FruitsValue is not null;
+    }
+    public static implicit operator FruitsEnum(Fruit fruit)
+    {
+        return fruit._FruitsValue ?? throw new UnsupportedValueException();
+    }
+
+    public static implicit operator Fruit(FruitsEnum fruit)
+    {
+        return Fruits.FromEnum(fruit);
+    }
+
+    public static bool operator ==(Fruit left, FruitsEnum right)
+    {
+        return left._FruitsValue == right;
+    }
+    public static bool operator !=(Fruit left, FruitsEnum right)
+    {
+        return left._FruitsValue != right;
+    }
+}
+
+```
+
+## SampleApp.NotVegetables.Fruits.g.cs
+
+```csharp
+//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by the EpicEnums source generator
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+#nullable enable
+using System.Collections;
+using EpicEnums.Exceptions;
+
+namespace SampleApp.NotVegetables;
+
+public partial record Fruits: IEnumerable<Fruit> 
+{
+    static Fruits()
+    {
+        Apple = Apple with { FruitsValue = FruitsEnum.Apple };
+Banana = Banana with { FruitsValue = FruitsEnum.Banana };
+Orange = Orange with { FruitsValue = FruitsEnum.Orange };
+DragonFruit = DragonFruit with { FruitsValue = FruitsEnum.DragonFruit };
+
+    }
+
+    public Fruit this[FruitsEnum fruit]
+        => FromEnum(fruit);
+
+    public static Fruit FromEnum(FruitsEnum fruit)
+        => fruit switch
+            {
+                FruitsEnum.Apple => Apple,
+FruitsEnum.Banana => Banana,
+FruitsEnum.Orange => Orange,
+FruitsEnum.DragonFruit => DragonFruit,
+_ => throw new UnsupportedValueException($"{ fruit }")
+
+            };
+
+
+    public static IEnumerable<Fruit> Enumerable()
+    {
+        yield return Apple;
+yield return Banana;
+yield return Orange;
+yield return DragonFruit;
+
+    }
+
+    public static IEnumerable<Fruit> Values
+    {
+        get
+        {
+            return Enumerable();
+        }
+    }
+
+    public IEnumerator<Fruit> GetEnumerator()
+    {
+        return Enumerable().GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return Enumerable().GetEnumerator();
+    }
+}
+
+```

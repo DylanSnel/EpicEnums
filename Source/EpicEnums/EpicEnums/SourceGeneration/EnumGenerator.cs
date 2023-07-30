@@ -150,7 +150,7 @@ internal class EnumGenerator : IIncrementalGenerator
                 }
                 """");
 
-        context.AddSource($"{enumToGenerate.Name}_{enumToGenerate.Type}.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
+        context.AddSource($"{enumToGenerate.Namespace}.{enumToGenerate.Name}.{enumToGenerate.Type}.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
     }
 
 
@@ -219,7 +219,7 @@ internal class EnumGenerator : IIncrementalGenerator
                 }
                 """");
 
-        context.AddSource($"{enumToGenerate.Name}.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
+        context.AddSource($"{enumToGenerate.Namespace}.{enumToGenerate.Name}.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
     }
 
     private static void GenerateEnum(SourceProductionContext context, EnumToGenerate enumToGenerate)
@@ -241,7 +241,7 @@ internal class EnumGenerator : IIncrementalGenerator
         //    sb.Remove(sb.Length - 3, 1);
         //}
         sb.AppendLine("}");
-        context.AddSource($"{enumToGenerate.Name}Enum.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
+        context.AddSource($"{enumToGenerate.Namespace}.{enumToGenerate.Name}Enum.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
     }
 
 

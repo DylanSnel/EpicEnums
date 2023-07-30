@@ -1,10 +1,18 @@
-﻿@page "/usability"
+﻿@page "/features"
 @using SampleApp.NotVegetables;
-<PageTitle>Usability</PageTitle>
+<PageTitle>Features</PageTitle>
 
 <h1>How to use</h1>
 
-@fruit
+@foreach (var fruit in Fruits.Values)
+{
+    <p>@fruit</p>
+}
+
+@foreach (FruitsEnum fruit in Fruits.Values)
+{
+    <p>@fruit</p>
+}
 
 <p role="status">Current count: @currentCount</p>
 
@@ -17,7 +25,7 @@
     private void IncrementCount()
     {
         currentCount++;
-        fruit = (FruitsEnum) (currentCount % Fruits.Enumerable().Count());
+        fruit = (FruitsEnum) (currentCount % Fruits.Values.Count());
 
     }
 }
