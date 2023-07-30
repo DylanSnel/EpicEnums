@@ -14,7 +14,7 @@ public class EnumGeneratorTests
     }
 
     [Fact]
-    public void FruitsEnum_Assignments()
+    public void FruitsEnum_Conversion()
     {
         (Fruits.Apple == FruitsEnum.Apple).Should().BeTrue();
 

@@ -1,4 +1,5 @@
 ﻿namespace SampleApp.Dummy;
+using NotVegetables;
 
 public partial record Dummy
 {
@@ -23,4 +24,15 @@ public partial record Dummy
         }
     }
 
+}
+
+public class Foo
+{
+    public FruitsEnum MyFruit { get; set; } = FruitsEnum.Apple;
+
+    public void DisplayName()
+    {
+        Fruit x = MyFruit;
+        Console.WriteLine(x.Name);
+    }
 }
