@@ -16,7 +16,7 @@ public enum FruitsEnum
     DragonFruit
 } 
 ```
-All pretty standard nothing special, however if we want to tie some extra properties to our fruit then things get a little tricky. We could of course add an attribute and make it work:
+All pretty standard nothing special, however if we want to tie some extra properties to our fruit then things get a little tricky. We could, of course, add an attribute and make it work:
 
 ```csharp
 public enum FruitsEnum
@@ -58,7 +58,7 @@ public class Foo
     public void DisplayName()
     {
         var fruitDisplayName = Fruit.GetAttribute<DisplayAttribute>();
-        Console.WriteLine("Which friot is it?");
+        Console.WriteLine("Which fruit is it?");
         Console.WriteLine (fruitDisplayName.Name);
     } 
 }
@@ -68,7 +68,7 @@ public class Foo
 Reflection can be slow and give issues in AOT compiling. Plus it can be kind of tedious.
 
 # A Better enum
-(The name epic enums was chosen because it alliterats ever so lovely)
+(The name epic enums was chosen because it alliterates ever so lovely)
 
 ## Installing the package
 
@@ -116,6 +116,33 @@ public partial record Fruits : EpicEnum<Fruit> // It is very important that this
 }
 ```
 
+## The enum
+
+Now after first build the source generator will do its magic we have access to the FruitsEnum. Together with some extensions added to the partial records we can now use the Fruit record and the enum almost interchangeably.
+
+> **Warning**
+> Sometimes visual studio will indicate an error, but your application will build. Just restart Visual Studio, and in general it shouldnt be an issue anymore.
+
+```csharp
+public class Foo
+{
+    public FruitsEnum MyFruit { get; set; } = FruitsEnum.Apple;
+
+    public void DisplayName()
+    {
+        Fruit x = MyFruit;
+        Console.WriteLine(x.Name);  //No reflection used here
+    }
+}
+```
+
+
+# Features
+
+## Enumeration
 
 
 
+## Conversion
+
+## Compare 
