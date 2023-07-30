@@ -65,7 +65,7 @@ public class Foo
 
 ```
 
-Reflection can be slow and give issues in AOT compiling. Plus it can be kind of tedious.
+Reflection can be slow and give issues in AOT compiling. Plus it can be kind of tedious. Read the getting started section to see how EpicEnums improves this.
 
 # Getting Started
 (The name epic enums was chosen because it alliterates ever so lovely)
