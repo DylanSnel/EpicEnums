@@ -41,8 +41,8 @@ internal class EnumGenerator : IIncrementalGenerator
         IncrementalValuesProvider<RecordDeclarationSyntax> epicEnumDeclarations = context.SyntaxProvider
            .CreateSyntaxProvider(
                predicate: static (s, _) => IsSyntaxTargetForGeneration(s), // select enums with attributes
-               transform: static (ctx, _) => GetSemanticTargetForGeneration(ctx)) // sect the enum with the [EnumExtensions] attribute
-           .Where(static m => m is not null)!; // filter out attributed enums that we don't care about
+               transform: static (ctx, _) => GetSemanticTargetForGeneration(ctx)) // select the enum with the EpicEnum basetype
+           .Where(static m => m is not null)!; // filter out enums that we don't care about
 
 
         IncrementalValueProvider<(Compilation, ImmutableArray<RecordDeclarationSyntax>)> compilationAndEnums
