@@ -10,4 +10,3 @@ public partial record Fruits : EpicEnum<Fruit>
     public static Fruit DragonFruit { get; } = new() { Name = "Dragon Fruit", Description = "A pink fruit", LikeAble = true };
 
 }
-

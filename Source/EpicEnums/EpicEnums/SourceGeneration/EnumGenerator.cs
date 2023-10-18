@@ -69,7 +69,7 @@ internal class EnumGenerator : IIncrementalGenerator
             // weird, we couldn't get the symbol, ignore it
             return null;
         }
-        else if (recordSymbol.IsDerivedFromType("EpicEnum"))
+        else if (recordSymbol.IsDirectlyDerivedDrom("EpicEnum"))
         {
             return recordDeclarationSyntax;
         }
@@ -235,11 +235,6 @@ internal class EnumGenerator : IIncrementalGenerator
             sb.AppendLine("    " + property + ",");
         }
 
-        //if (sb.Length > 0)
-        //{
-        //    // remove the last character which is the comma
-        //    sb.Remove(sb.Length - 3, 1);
-        //}
         sb.AppendLine("}");
         context.AddSource($"{enumToGenerate.Namespace}.{enumToGenerate.Name}Enum.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
     }
@@ -272,8 +267,6 @@ internal class EnumGenerator : IIncrementalGenerator
                 continue;
             }
 
-            // Get the full type name of the enum e.g. Colour, 
-            // or OuterClass<T>.Colour if it was nested in a generic type (for example)
             string recordName = recordSymbol.ToString();
 
             var baseType = recordSymbol.BaseType;

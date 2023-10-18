@@ -17,6 +17,19 @@ internal static class SymbolExtensions
             .FirstOrDefault(_ => _.AttributeClass?.ToDisplayString() == atrributeName);
     }
 
+    public static bool IsDirectlyDerivedDrom(this INamedTypeSymbol symbol, string typeName)
+    {
+        if (symbol.BaseType == null)
+        {
+            return false;
+        }
+        if (symbol.BaseType.Name == typeName)
+        {
+            return true;
+        }
+        return false;
+    }
+
     public static bool IsDerivedFromType(this INamedTypeSymbol symbol, string typeName)
     {
         if (symbol.Name == typeName)
@@ -34,6 +47,6 @@ internal static class SymbolExtensions
 
     public static bool IsImplements(this INamedTypeSymbol symbol, string typeName)
     {
-        return symbol.AllInterfaces.Any(_ => _.ToDisplayString() == typeName);
+        return symbol.AllInterfaces.Any(_ => _.Name == typeName);
     }
 }

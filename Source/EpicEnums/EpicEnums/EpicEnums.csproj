@@ -17,7 +17,7 @@
     <InternalsVisibleTo>EpicEnums.Tests</InternalsVisibleTo>
     <RepositoryUrl>https://github.com/DylanSnel/EpicEnums</RepositoryUrl>
     
-    <Version>1.4.3</Version>
+    <Version>1.4.14</Version>
   </PropertyGroup>
 
   <ItemGroup>
