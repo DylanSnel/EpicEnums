@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using EpicEnums.Analyzers;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
@@ -6,7 +7,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Immutable;
 using System.Composition;
 
-namespace EpicEnums.Analyzers;
+namespace EpicEnums.CodeFix;
 
 [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(PartialRecordCodeFixProvider))]
 [Shared]
@@ -14,14 +15,17 @@ public class PartialRecordCodeFixProvider : CodeFixProvider
 {
 
     public override ImmutableArray<string> FixableDiagnosticIds =>
-        ImmutableArray.Create("EE0001");
+        ImmutableArray.Create(PartialRecordAnalyzer.ErrorId);
 
     public override async Task RegisterCodeFixesAsync(CodeFixContext context)
     {
         var root = await context.Document.GetSyntaxRootAsync(context.CancellationToken).ConfigureAwait(false);
         var diagnostic = context.Diagnostics.First();
         var diagnosticSpan = diagnostic.Location.SourceSpan;
-        var declaration = root.FindToken(diagnosticSpan.Start).Parent.AncestorsAndSelf().OfType<RecordDeclarationSyntax>().First();
+        var declaration = root.FindToken(diagnosticSpan.Start).Parent
+            .AncestorsAndSelf()
+            .OfType<RecordDeclarationSyntax>()
+            .First();
 
         context.RegisterCodeFix(
             CodeAction.Create(

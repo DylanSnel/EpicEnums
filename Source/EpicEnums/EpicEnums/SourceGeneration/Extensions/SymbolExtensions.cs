@@ -8,13 +8,13 @@ internal static class SymbolExtensions
     public static bool HasAttribute(this ISymbol symbol, string atrributeName)
     {
         return symbol.GetAttributes()
-            .Any(_ => _.AttributeClass?.ToDisplayString() == atrributeName);
+            .Any(_ => _.AttributeClass?.Name == atrributeName);
     }
 
     public static AttributeData? FindAttribute(this ISymbol symbol, string atrributeName)
     {
         return symbol.GetAttributes()
-            .FirstOrDefault(_ => _.AttributeClass?.ToDisplayString() == atrributeName);
+            .FirstOrDefault(_ => _.AttributeClass?.Name == atrributeName);
     }
 
     public static bool IsDirectlyDerivedDrom(this INamedTypeSymbol symbol, string typeName)

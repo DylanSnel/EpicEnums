@@ -38,9 +38,11 @@ internal class EnumGenerator : IIncrementalGenerator
         //#endif
 #pragma warning restore S125 // Sections of code should not be commented out
 #pragma warning restore IDE0079 // Remove unnecessary suppression
+
+
         IncrementalValuesProvider<RecordDeclarationSyntax> epicEnumDeclarations = context.SyntaxProvider
            .CreateSyntaxProvider(
-               predicate: static (s, _) => IsSyntaxTargetForGeneration(s), // select enums with attributes
+               predicate: static (s, _) => IsSyntaxTargetForGeneration(s), // select records with basetypes
                transform: static (ctx, _) => GetSemanticTargetForGeneration(ctx)) // select the enum with the EpicEnum basetype
            .Where(static m => m is not null)!; // filter out enums that we don't care about
 

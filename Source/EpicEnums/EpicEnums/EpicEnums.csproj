@@ -17,7 +17,7 @@
     <InternalsVisibleTo>EpicEnums.Tests</InternalsVisibleTo>
     <RepositoryUrl>https://github.com/DylanSnel/EpicEnums</RepositoryUrl>
     
-    <Version>1.4.14</Version>
+    <Version>1.4.17</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,6 +26,11 @@
     <Compile Remove="nupkgs\**" />
     <EmbeddedResource Remove="nupkgs\**" />
     <None Remove="nupkgs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="AnalyzerReleases.Shipped.md" />
+    <AdditionalFiles Include="AnalyzerReleases.Unshipped.md" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,17 +1,22 @@
-﻿using EpicEnums.SourceGeneration.Extensions;
+﻿using EpicEnums.CodeFix;
+using EpicEnums.SourceGeneration.Extensions;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using System.Collections.Immutable;
+using System.Composition;
 
 namespace EpicEnums.Analyzers;
 
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
+[ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(PartialRecordCodeFixProvider)), Shared]
 public class PartialRecordAnalyzer : DiagnosticAnalyzer
 {
+    internal const string ErrorId = "EE0001";
     readonly DiagnosticDescriptor _recordShouldBePartialDescriptor = new(
-               id: "EE0001",
+               id: ErrorId,
                title: "EpicEnums",
                messageFormat: "EpicEnums: Record {0} inherits {1} should be marked partial",
                category: "EpicEnums",
