@@ -23,6 +23,7 @@ internal class StaticEnumPropertiesCodeFixProvider : CodeFixProvider
     public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
     {
         var root = await context.Document.GetSyntaxRootAsync(context.CancellationToken).ConfigureAwait(false);
+        // Find the diagnostic that has the matching span.
         var diagnostic = context.Diagnostics.First();
         var diagnosticSpan = diagnostic.Location.SourceSpan;
 
@@ -40,8 +41,8 @@ internal class StaticEnumPropertiesCodeFixProvider : CodeFixProvider
 
     private async Task<Document> MakePropertyStaticAsync(Document document, PropertyDeclarationSyntax propertyDecl, CancellationToken cancellationToken)
     {
+        // Get the symbol representing the type to be renamed.
         var editor = await DocumentEditor.CreateAsync(document, cancellationToken).ConfigureAwait(false);
-        var staticToken = SyntaxFactory.Token(SyntaxKind.StaticKeyword);
 
         // Add the static modifier to the property
         editor.SetModifiers(propertyDecl, editor.Generator.GetModifiers(propertyDecl).WithIsStatic(true));
